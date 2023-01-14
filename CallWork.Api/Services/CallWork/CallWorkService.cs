@@ -8,9 +8,11 @@ namespace CallWork.Api.Services.CallWork;
 public class CallWorkService : ICallWorkService
 {
     private static readonly Dictionary<Guid, CallWorkModel> _callwork = new();
-    public void CreateNewCallWork(CallWorkModel callwork)
+    public ErrorOr<Created>CreateNewCallWork(CallWorkModel callwork)
     {
         _callwork.Add(callwork.Id, callwork);
+
+        return Result.Created;
     }
 
     public ErrorOr<CallWorkModel> GetCallById(Guid id)
@@ -20,13 +22,19 @@ public class CallWorkService : ICallWorkService
             : (ErrorOr<CallWorkModel>)Errors.CallWork.NotFound;
     }
 
-    public void UpsertCallWork(CallWorkModel callWork)
+    public ErrorOr<UpsertedCallWork>UpsertCallWork(CallWorkModel callWork)
     {
+        var isNewlyCreated = !_callwork.ContainsKey(callWork.Id);
+
         _callwork[callWork.Id] = callWork;
+
+        return new UpsertedCallWork(isNewlyCreated);
     }
 
-    public void DeleteCall(Guid id)
+    public ErrorOr<Deleted>DeleteCall(Guid id)
     {
         _callwork.Remove(id);
+
+        return Result.Deleted;
     }
 }
