@@ -1,5 +1,0 @@
-@id=00000000-0000-0000-0000-000000000000
-@host=https://localhost:7297
-
-GET {{host}}/callwork/{{id}}
-Content-Type: application/json
