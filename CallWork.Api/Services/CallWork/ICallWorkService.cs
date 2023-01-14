@@ -5,8 +5,8 @@ using ErrorOr;
 namespace CallWork.Api.Services.CallWork;
 
 public interface ICallWorkService {
-    void CreateNewCallWork(CallWorkModel callwork);
-    ErrorOr<CallWorkModel> GetCallById(Guid id);
-    void UpsertCallWork(CallWorkModel callwork);
-    void DeleteCall(Guid id);
+    ErrorOr<Created>CreateNewCallWork(CallWorkModel callWork);
+    ErrorOr<CallWorkModel>GetCallById(Guid id);
+    ErrorOr<UpsertedCallWork>UpsertCallWork(CallWorkModel callWork);
+    ErrorOr<Deleted>DeleteCall(Guid id);
 }
