@@ -1,7 +1,7 @@
 namespace CallWork.Contracts.CallWork;
 
 public record CreateCallWorkRequest(
-    string CallWork,
+    string Title,
     string Description,
     DateTime StartDateTime,
     DateTime EndDateTime,

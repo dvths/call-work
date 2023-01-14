@@ -2,7 +2,7 @@ namespace CallWork.Contracts.CallWork;
 
 public record CreateCallWorkResponse(
     Guid Id,
-    string CallWork,
+    string Title,
     string Description,
     DateTime StartDateTime,
     DateTime EndDateTime,
