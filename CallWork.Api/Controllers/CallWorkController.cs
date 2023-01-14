@@ -1,6 +1,9 @@
 using CallWork.Api.Models;
+using CallWork.Api.ServiceErrors;
 using CallWork.Api.Services.CallWork;
 using CallWork.Contracts.CallWork;
+
+using ErrorOr;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +23,7 @@ public class CallWorkController : ControllerBase
     [HttpPost]
     public IActionResult CreateCall(CreateCallWorkRequest request)
     {
-        var callwork = new CallWorkModel(
+        var callWork = new CallWorkModel(
             Guid.NewGuid(),
             request.Title,
             request.Description,
@@ -30,40 +33,47 @@ public class CallWorkController : ControllerBase
             request.Subjects,
             request.Technologies);
 
-        // TODO salvar no banco de dados
-        _callWorkService.CreateNewCallWork(callwork);
+        _callWorkService.CreateNewCallWork(callWork);
 
         var response = new CreateCallWorkResponse(
-            callwork.Id,
-            callwork.Title,
-            callwork.Description,
-            callwork.StartDateTime,
-            callwork.EndDateTime,
-            callwork.LastModifiedDateTime,
-            callwork.Subjects,
-            callwork.Technologies
+            callWork.Id,
+            callWork.Title,
+            callWork.Description,
+            callWork.StartDateTime,
+            callWork.EndDateTime,
+            callWork.LastModifiedDateTime,
+            callWork.Subjects,
+            callWork.Technologies
         );
 
         return CreatedAtAction(
             actionName: nameof(GetCall),
-            routeValues: new { id = callwork.Id },
+            routeValues: new { id = callWork.Id },
             value: response);
     }
 
     [HttpGet("{id:guid}")]
     public IActionResult GetCall(Guid id)
     {
-        CallWorkModel callwork = _callWorkService.GetCallById(id);
+        ErrorOr<CallWorkModel> getCallWorkResult = _callWorkService.GetCallById(id);
+
+        if (getCallWorkResult.IsError &&
+            getCallWorkResult.FirstError == Errors.CallWork.NotFound)
+        {
+            return NotFound();
+        }
+
+        var callWork = getCallWorkResult.Value;
 
         var response = new CreateCallWorkResponse(
-            callwork.Id,
-            callwork.Title,
-            callwork.Description,
-            callwork.StartDateTime,
-            callwork.EndDateTime,
-            callwork.LastModifiedDateTime,
-            callwork.Subjects,
-            callwork.Technologies
+            callWork.Id,
+            callWork.Title,
+            callWork.Description,
+            callWork.StartDateTime,
+            callWork.EndDateTime,
+            callWork.LastModifiedDateTime,
+            callWork.Subjects,
+            callWork.Technologies
         );
         return Ok(response);
     }
@@ -71,7 +81,7 @@ public class CallWorkController : ControllerBase
     [HttpPut("{id:guid}")]
     public IActionResult UpsertCall(Guid id, UpsertCallWorkRequest request)
     {
-        var callwork = new CallWorkModel(
+        var callWork = new CallWorkModel(
             id,
             request.Title,
             request.Description,
@@ -81,7 +91,7 @@ public class CallWorkController : ControllerBase
             request.Subjects,
             request.Technologies);
 
-        _callWorkService.UpsertCallWork(callwork);
+        _callWorkService.UpsertCallWork(callWork);
 
         // TODO retorna 201 se nenhuma callwork tiver sido criada
         return NoContent();
