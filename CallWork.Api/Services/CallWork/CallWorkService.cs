@@ -1,4 +1,7 @@
 using CallWork.Api.Models;
+using CallWork.Api.ServiceErrors;
+
+using ErrorOr;
 
 namespace CallWork.Api.Services.CallWork;
 
@@ -10,9 +13,11 @@ public class CallWorkService : ICallWorkService
         _callwork.Add(callwork.Id, callwork);
     }
 
-    public CallWorkModel GetCallById(Guid id)
+    public ErrorOr<CallWorkModel> GetCallById(Guid id)
     {
-        return _callwork[id];
+        return _callwork.TryGetValue(id, out var callWork)
+            ? (ErrorOr<CallWorkModel>)callWork
+            : (ErrorOr<CallWorkModel>)Errors.CallWork.NotFound;
     }
 
     public void UpsertCallWork(CallWorkModel callWork)
