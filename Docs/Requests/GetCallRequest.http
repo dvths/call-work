@@ -1,0 +1,5 @@
+@id=9519096a-efc9-4b6c-b3d8-35a814c2bd33
+@host=https://localhost:7297
+
+GET {{host}}/callwork/{{id}}
+Content-Type: application/json

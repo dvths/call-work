@@ -1,0 +1,23 @@
+@id=9519096a-efc9-4b6c-b3d8-35a814c2bd33
+@host=https://localhost:7297
+
+PUT {{host}}/callwork/{{id}}
+Content-Type: application/json
+
+{
+    "title": "Let's study building a RESTful API with me!",
+    "description": "How design patterns can help us build scalable and testable software!",
+    "startDateTime": "2022-04-08T08:00:00",
+    "endDateTime": "2022-04-08T11:00:00",
+    "subjects": [
+        "Desing Patterns",
+        "Unit Test",
+        "Error Handling",
+        "REST"
+    ],
+    "technologies": [
+        "AspNet Core",
+        "Docker",
+        "Entity Framework"
+    ]
+}

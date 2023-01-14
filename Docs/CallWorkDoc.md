@@ -10,9 +10,9 @@
   - [Update Call](#update-call)
     - [Update Call Request](#update-call-request)
     - [Update Call Response](#update-call-response)
-  - [Delete Breakfast](#delete-breakfast)
-    - [Delete Breakfast Request](#delete-breakfast-request)
-    - [Delete Breakfast Response](#delete-breakfast-response)
+  - [Delete Call](#delete-call)
+    - [Delete Call Request](#delete-call-request)
+    - [Delete Call Response](#delete-call-response)
 
 ## Create Call Work
 
@@ -24,12 +24,12 @@ POST /callwork
 
 ```json
 {
-    "callwork": "Let's study building a RESTful API!",
+    "title": "Let's study building a RESTful API!",
     "description": "How design patterns can help us build scalable and testable software!",
     "startDateTime": "2022-04-08T08:00:00",
     "endDateTime": "2022-04-08T11:00:00",
     "subjects": [
-        "Desing Patterns",
+        "Design Patterns",
         "Unit Test",
         "Error Handling",
         "REST"
@@ -55,13 +55,13 @@ Location: {{host}}/calls/{{id}}
 ```json
 {
     "id": "00000000-0000-0000-0000-000000000000",
-    "callwork": "Let's study building a RESTful API!",
+    "title": "Let's study building a RESTful API!",
     "description": "How design patterns can help us build scalable and testable software!",
     "startDateTime": "2022-04-08T08:00:00",
     "endDateTime": "2022-04-08T11:00:00",
     "lastModifiedDateTime": "2022-04-08T11:00:00",
     "subjects": [
-        "Desing Patterns",
+        "Design Patterns",
         "Unit Test",
         "Error Handling",
         "REST"
@@ -74,7 +74,7 @@ Location: {{host}}/calls/{{id}}
 }
 ```
 
-## Get Call 
+## Get Call
 
 ### Get Call Request
 
@@ -91,12 +91,12 @@ GET /calls/{{id}}
 ```json
 {
     "id": "00000000-0000-0000-0000-000000000000",
-    "callwork": "Let's study building a RESTful API!",
+    "title": "Let's study building a RESTful API!",
     "description": "How design patterns can help us build scalable and testable software!",
     "startDateTime": "2022-04-08T08:00:00",
     "endDateTime": "2022-04-08T11:00:00",
     "subjects": [
-        "Desing Patterns",
+        "Design Patterns",
         "Unit Test",
         "Error Handling",
         "REST"
@@ -119,12 +119,12 @@ PUT /calls/{{id}}
 
 ```json
 {
-    "callwork": "Let's study building a RESTful API!",
+    "title": "Let's study building a RESTful API!",
     "description": "How can design patterns make our code better? Let's find out together!",
     "startDateTime": "2022-04-08T08:00:00",
     "endDateTime": "2022-04-08T11:00:00",
     "subjects": [
-        "Desing Patterns",
+        "Design Patterns",
         "Unit Test",
         "Error Handling",
         "REST"
@@ -153,15 +153,15 @@ or
 Location: {{host}}/Breakfasts/{{id}}
 ```
 
-## Delete Breakfast
+## Delete Call
 
-### Delete Breakfast Request
+### Delete Call Request
 
 ```js
-DELETE /breakfasts/{{id}}
+DELETE /callwork/{{id}}
 ```
 
-### Delete Breakfast Response
+### Delete Call Response
 
 ```js
 204 No Content
