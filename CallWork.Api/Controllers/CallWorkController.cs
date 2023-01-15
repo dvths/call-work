@@ -20,15 +20,14 @@ public class CallWorkController : ApiController
     [HttpPost]
     public IActionResult CreateCall(CreateCallWorkRequest request)
     {
-        var callWork = new CallWorkModel(
-            Guid.NewGuid(),
-            request.Title,
-            request.Description,
-            request.StartDateTime,
-            request.EndDateTime,
-            DateTime.UtcNow,
-            request.Subjects,
-            request.Technologies);
+        var requestToCallWorkResult = CallWorkModel.From(request);
+
+        if (requestToCallWorkResult.IsError)
+        {
+            return Problem(requestToCallWorkResult.Errors);
+        }
+
+        var callWork = requestToCallWorkResult.Value;
 
         var createCallWorkResult = _callWorkService.CreateNewCallWork(callWork);
         return createCallWorkResult.Match(
@@ -48,16 +47,14 @@ public class CallWorkController : ApiController
     [HttpPut("{id:guid}")]
     public IActionResult UpsertCall(Guid id, UpsertCallWorkRequest request)
     {
-        var callWork = new CallWorkModel(
-            id,
-            request.Title,
-            request.Description,
-            request.StartDateTime,
-            request.EndDateTime,
-            DateTime.UtcNow,
-            request.Subjects,
-            request.Technologies);
+        var requestCallWorkResult = CallWorkModel.From(id, request);
 
+        if (requestCallWorkResult.IsError)
+        {
+            return Problem(requestCallWorkResult.Errors);
+        }
+
+        var callWork = requestCallWorkResult.Value;
         var upsertCallWorkResult = _callWorkService.UpsertCallWork(callWork);
 
         return upsertCallWorkResult.Match(
