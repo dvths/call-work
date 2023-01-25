@@ -1,8 +1,14 @@
 # Call Work
 
-[Visão Geral](#visão-geral) [Arquitetura de Serviço](#arquitetura-de-serviço)
-[Tecnologias]("#tecnologias") [Arquitetura]("#arquitetura") [Uso]("#uso")
-[Aviso]("#aviso") [Licença]("#licença")
+- [Visão Geral](#visão-geral)
+
+- [Arquitetura de Serviço](#arquitetura-de-serviço)
+
+- [Tecnologias]("#tecnologias")
+
+- [Arquitetura]("#arquitetura") [Uso]("#uso")
+
+- [Aviso]("#aviso") [Licença]("#licença")
 
 # Visão geral
 
